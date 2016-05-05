@@ -17,6 +17,8 @@ class Emoji:
         if not self._codepoints:
             code_list = self.soup.find(text='Codepoints').findNext('ul')
             if code_list:
-                self._codepoints = list(set([child.text[3:] for child in code_list.findChildren()]))
+                nonunique = [child.text.split()[1]
+                             for child in code_list.findChildren()]
+                self._codepoints = list(set(nonunique))
         print self._codepoints
         return self._codepoints
