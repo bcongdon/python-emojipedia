@@ -18,10 +18,10 @@ def test_emoji_description():
     assert shrug.description.startswith(correct)
 
 
-# def test_emoji_codepoints():
-#     shrug = Emojipedia.search('shrug')
-#     correct = 'U+1F937'
-#     assert shrug.codepoints[0] == correct
+def test_emoji_codepoints():
+    shrug = Emojipedia.search('shrug')
+    correct = 'U+1F937'
+    assert shrug.codepoints[0] == correct
 
 
 # def test_emoji_shortcodes():

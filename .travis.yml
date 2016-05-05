@@ -5,6 +5,3 @@ python:
 install: 
   - "pip install -r requirements.txt"
 script: nosetests
-addons:
-    code_climate:
-        repo_token: 7389689f9cbef0c6b43dac432f2b555472f18a07da9ade86ac0ae9dd25e15539

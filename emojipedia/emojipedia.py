@@ -10,15 +10,20 @@ class Emojipedia:
         return Emoji(Emojipedia.get_emoji_page(query))
 
     @staticmethod
+    def random():
+        return Emoji(Emojipedia.get_emoji_page('random'))
+
+    @staticmethod
     def valid_emoji_page(soup):
         """
         (soup) -> bool
         """
         _type = soup.find('meta', {'property': 'og:type'})
-        return _type and _type['content'] == 'article'
+        return (_type and _type['content'] == 'article')
 
     @staticmethod
     def get_emoji_page(query):
+        #TODO: Allow 'seach' for emoji (non-literal title)
         response = requests.get('http://emojipedia.org/' + query)
         if response.status_code != 200:
             raise UserWarning('Could not get emojipedia page for \'{0}\''
@@ -26,5 +31,5 @@ class Emojipedia:
 
         soup = BeautifulSoup(response.text)
         if not Emojipedia.valid_emoji_page(soup):
-            raise UserWarning('Request did not yield emoji entry')
+            raise UserWarning('Query did not yield a emoji entry')
         return soup
