@@ -1,8 +1,11 @@
 class Emoji:
     def __init__(self, content):
         self.soup = content
-        self._description = None
+
         self._codepoints = None
+        self._description = None
+        self._platforms = None
+        self._shortcodes = None
 
     @property
     def description(self):
@@ -22,3 +25,22 @@ class Emoji:
                 self._codepoints = list(set(nonunique))
         print self._codepoints
         return self._codepoints
+
+    @property
+    def platforms(self):
+        if not self._platforms:
+            self._platforms = list()
+            platform_section = self.soup.find('section', {'class': 'vendor-list'})
+            for title in platform_section.findAll('h2'):
+                self._platforms.append(title.text)
+        return self._platforms
+
+    @property
+    def shortcodes(self):
+        if not self._shortcodes:
+            codelist = self.soup.find(text='Shortcodes').findNext('ul')
+            if codelist:
+                self._shortcodes = codelist.text.strip()
+        return self._shortcodes
+    
+    

@@ -24,7 +24,14 @@ def test_emoji_codepoints():
     assert shrug.codepoints[0] == correct
 
 
-# def test_emoji_shortcodes():
-#     joy_tears = Emojipedia.search('face-with-tears-of-joy')
-#     correct = ':joy:'
-#     assert joy_tears.shortcodes[0] == correct
+def test_platforms():
+    wink = Emojipedia.search('winking-face')
+    correct = ['Apple','Google','Microsoft','Samsung',
+               'LG','HTC','Twitter','Facebook','Mozilla', 'Emoji One']
+    assert set(wink.platforms) == set(correct) # Order not important
+
+
+def test_emoji_shortcodes():
+    joy_tears = Emojipedia.search('face-with-tears-of-joy')
+    correct = ':joy:'
+    assert joy_tears.shortcodes == correct
