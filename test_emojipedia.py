@@ -50,6 +50,18 @@ def test_emoji_aliases():
                'Thank You Emoji']
     assert set(hands.aliases) == set(correct)
 
+
 def test_emoji_no_aliases():
     heavy_plus = Emojipedia.search('heavy-plus-sign')
     assert heavy_plus.aliases is None
+
+
+def test_emoji_title():
+    taco = Emojipedia.search('taco')
+    assert taco.title == "Taco"
+
+
+def test_emoji_character():
+    taco = Emojipedia.search('taco')
+    # Python Unicode silliness
+    assert taco.character.encode('unicode_escape') == '\\U0001f32e'

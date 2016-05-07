@@ -3,10 +3,12 @@ class Emoji:
         self.soup = content
 
         self._aliases = None
+        self._character = None
         self._codepoints = None
         self._description = None
         self._platforms = None
         self._shortcodes = None
+        self._title = None
 
     @property
     def description(self):
@@ -51,6 +53,22 @@ class Emoji:
             if alias_section:
                 self._aliases = list()
                 for alias in alias_section.findAll('li'):
+                    # Remove initial emoji + whitespace
                     self._aliases.append(" ".join(alias.text.split()[1:]))
         return self._aliases
+
+    @property
+    def title(self):
+        if not self._title:
+            # Remove initial emoji + whitespace
+            self._title = " ".join(self.soup.find('h1').text.split()[1:])
+        return self._title
+
+    @property
+    def character(self):
+        if not self._character:
+            self._character = self.soup.find('h1').text.split()[0]
+        return self._character
+    
+    
     
