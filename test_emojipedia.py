@@ -28,7 +28,11 @@ def test_platforms():
     wink = Emojipedia.search('winking-face')
     correct = ['Apple','Google','Microsoft','Samsung',
                'LG','HTC','Twitter','Facebook','Mozilla', 'Emoji One']
-    assert set(wink.platforms) == set(correct) # Order not important
+    assert set([x['title'] for x in wink.platforms]) == set(correct) # Order not important
+    for platform in wink.platforms:
+        assert 'title' in platform
+        assert 'platform_url' in platform and platform['platform_url'].startswith('/')
+        assert 'platform_image' in platform and platform['platform_image'].startswith('http')
 
 
 def test_emoji_shortcodes():

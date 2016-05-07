@@ -35,8 +35,16 @@ class Emoji:
             self._platforms = list()
             platform_section = self.soup.find('section',
                                               {'class': 'vendor-list'})
-            for title in platform_section.findAll('h2'):
-                self._platforms.append(title.text)
+            for vendor in platform_section.findAll('li'):
+                vendor_title = vendor.findNext('h2')
+                vendor_img = vendor.find('div',{'class':'vendor-image'})
+
+                platform = {
+                    'title': vendor_title.text,
+                    'platform_url': vendor_img.find('a')['href'],
+                    'platform_image': vendor_img.find('img')['src'],
+                }
+                self._platforms.append(platform)
         return self._platforms
 
     @property
