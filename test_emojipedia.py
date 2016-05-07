@@ -35,3 +35,21 @@ def test_emoji_shortcodes():
     joy_tears = Emojipedia.search('face-with-tears-of-joy')
     correct = ':joy:'
     assert joy_tears.shortcodes == correct
+
+
+def test_emoji_without_shortcode():
+    wind_blow = Emojipedia.search('wind-blowing-face')
+    assert wind_blow.shortcodes is None
+
+
+def test_emoji_aliases():
+    hands = Emojipedia.search('person-with-folded-hands')
+    correct = ['High Five Emoji',
+               'Please Emoji',
+               'Praying Hands Emoji',
+               'Thank You Emoji']
+    assert set(hands.aliases) == set(correct)
+
+def test_emoji_no_aliases():
+    heavy_plus = Emojipedia.search('heavy-plus-sign')
+    assert heavy_plus.aliases is None

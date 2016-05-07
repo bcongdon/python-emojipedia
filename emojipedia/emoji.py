@@ -2,6 +2,7 @@ class Emoji:
     def __init__(self, content):
         self.soup = content
 
+        self._aliases = None
         self._codepoints = None
         self._description = None
         self._platforms = None
@@ -38,9 +39,18 @@ class Emoji:
     @property
     def shortcodes(self):
         if not self._shortcodes:
-            codelist = self.soup.find(text='Shortcodes').findNext('ul')
+            codelist = self.soup.find(text='Shortcodes')
             if codelist:
-                self._shortcodes = codelist.text.strip()
+                self._shortcodes = codelist.findNext('ul').text.strip()
         return self._shortcodes
     
+    @property
+    def aliases(self):
+        if not self._aliases:
+            alias_section = self.soup.find('section', {'class': 'aliases'})
+            if alias_section:
+                self._aliases = list()
+                for alias in alias_section.findAll('li'):
+                    self._aliases.append(" ".join(alias.text.split()[1:]))
+        return self._aliases
     
