@@ -33,7 +33,8 @@ class Emoji:
     def platforms(self):
         if not self._platforms:
             self._platforms = list()
-            platform_section = self.soup.find('section', {'class': 'vendor-list'})
+            platform_section = self.soup.find('section',
+                                              {'class': 'vendor-list'})
             for title in platform_section.findAll('h2'):
                 self._platforms.append(title.text)
         return self._platforms
@@ -45,7 +46,7 @@ class Emoji:
             if codelist:
                 self._shortcodes = codelist.findNext('ul').text.strip()
         return self._shortcodes
-    
+
     @property
     def aliases(self):
         if not self._aliases:
@@ -69,6 +70,3 @@ class Emoji:
         if not self._character:
             self._character = self.soup.find('h1').text.split()[0]
         return self._character
-    
-    
-    
