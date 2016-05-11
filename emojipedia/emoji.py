@@ -37,7 +37,7 @@ class Emoji:
                                               {'class': 'vendor-list'})
             for vendor in platform_section.findAll('li'):
                 vendor_title = vendor.findNext('h2')
-                vendor_img = vendor.find('div',{'class':'vendor-image'})
+                vendor_img = vendor.find('div', {'class': 'vendor-image'})
 
                 platform = {
                     'title': vendor_title.text,
@@ -78,3 +78,13 @@ class Emoji:
         if not self._character:
             self._character = self.soup.find('h1').text.split()[0]
         return self._character
+
+    def __str__(self):
+        string = u"<Emoji - '{0}' - character: {2}, description: {1}>"
+        string = string.format(self.title,
+                               self.description[:20] + "...",
+                               self.character)
+        return string.encode('utf-8')
+
+    def __repr__(self):
+        return self.__str__()

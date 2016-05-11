@@ -23,7 +23,6 @@ class Emojipedia:
 
     @staticmethod
     def get_emoji_page(query):
-        # TODO: Allow 'seach' for emoji (non-literal title)
         response = requests.get('http://emojipedia.org/' + query)
         if response.status_code != 200:
             raise UserWarning('Could not get emojipedia page for \'{0}\''
