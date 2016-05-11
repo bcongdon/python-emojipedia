@@ -73,3 +73,11 @@ def test_emoji_character():
     taco = Emojipedia.search('taco')
     # Python Unicode silliness
     assert taco.character.encode('unicode_escape') == '\\U0001f32e'
+
+
+def test_emoji_repr():
+    pizza = Emojipedia.search('slice-of-pizza')
+    correct = ("<Emoji - 'Slice of Pizza' - character: \\ud83c\\udf55, " +
+               "description: A slice \\xa0of pizza, w...>")
+    found = str(pizza).decode('utf-8').encode('ascii', 'backslashreplace')
+    assert found == correct
