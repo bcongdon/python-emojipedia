@@ -23,7 +23,7 @@ class Emojipedia:
 
     @staticmethod
     def get_emoji_page(query):
-        response = requests.get('http://emojipedia.org/' + query)
+        response = requests.get('http://emojipedia.org/' + query.decode('utf-8', 'backslashreplace'))
         if response.status_code != 200:
             raise UserWarning('Could not get emojipedia page for \'{0}\''
                               .format(query))
