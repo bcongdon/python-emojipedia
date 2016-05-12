@@ -26,7 +26,6 @@ class Emoji:
                 nonunique = [child.text.split()[1]
                              for child in code_list.findChildren()]
                 self._codepoints = list(set(nonunique))
-        print self._codepoints
         return self._codepoints
 
     @property
