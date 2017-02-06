@@ -77,7 +77,8 @@ def test_emoji_character():
 
 def test_emoji_repr():
     pizza = Emojipedia.search('slice-of-pizza')
-    correct = u"<Emoji - 'Pizza' - character: 🍕, description: A slice  of pizza, w...>"
+    correct = (u"<Emoji - 'Pizza' - character: 🍕, "
+               u"description: A slice  of pizza, w...>")
     print(type(correct))
     print(type(pizza.__str__()))
     assert pizza.__str__() == correct

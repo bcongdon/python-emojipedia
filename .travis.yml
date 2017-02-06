@@ -6,4 +6,7 @@ python:
   - "3.6"
 install: 
   - "pip install -r requirements.txt"
-script: nosetests
+  - "pip install pep8"
+script:
+  - pep8 emojipedia/ test_emojipedia.py
+  - nosetests
