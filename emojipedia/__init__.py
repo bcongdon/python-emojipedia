@@ -1,1 +1,1 @@
-from emojipedia import Emojipedia
+from .emojipedia import Emojipedia

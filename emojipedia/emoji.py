@@ -85,7 +85,7 @@ class Emoji:
         string = string.format(self.title,
                                self.description[:20] + "...",
                                self.character)
-        return string.encode('utf-8')
+        return string
 
     def __repr__(self):
         return self.__str__()

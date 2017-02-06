@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 from bs4 import BeautifulSoup
 import requests
-from emoji import Emoji
+from codecs import decode
+from .emoji import Emoji
 
 
 class Emojipedia:
@@ -23,12 +24,12 @@ class Emojipedia:
 
     @staticmethod
     def get_emoji_page(query):
-        response = requests.get('http://emojipedia.org/' + query.decode('utf-8', 'backslashreplace'))
+        response = requests.get('http://emojipedia.org/' + query)
         if response.status_code != 200:
             raise UserWarning('Could not get emojipedia page for \'{0}\''
                               .format(query))
 
-        soup = BeautifulSoup(response.text)
+        soup = BeautifulSoup(response.text, 'html.parser')
         if not Emojipedia.valid_emoji_page(soup):
             raise UserWarning('Query did not yield a emoji entry')
         return soup

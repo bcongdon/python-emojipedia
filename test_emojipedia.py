@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from emojipedia import Emojipedia
 import nose.tools
 
@@ -70,11 +72,12 @@ def test_emoji_title():
 
 def test_emoji_character():
     taco = Emojipedia.search('taco')
-    # Python Unicode silliness
-    assert taco.character.encode('unicode_escape') == '\\U0001f32e'
+    assert taco.character == u'🌮'
 
 
 def test_emoji_repr():
     pizza = Emojipedia.search('slice-of-pizza')
-    found = str(pizza).decode('utf-8').encode('ascii', 'backslashreplace')
-    assert found.startswith('<Emoji - ') and found.endswith('>')
+    correct = u"<Emoji - 'Pizza' - character: 🍕, description: A slice  of pizza, w...>"
+    print(type(correct))
+    print(type(pizza.__str__()))
+    assert pizza.__str__() == correct
