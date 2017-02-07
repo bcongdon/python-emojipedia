@@ -4,12 +4,12 @@ from emojipedia import Emojipedia
 import nose.tools
 
 
-@nose.tools.raises(UserWarning)
+@nose.tools.raises(RuntimeError)
 def test_invalid_url():
     Emojipedia.search('not a valid url')
 
 
-@nose.tools.raises(UserWarning)
+@nose.tools.raises(ValueError)
 def test_non_emoji_entry_query():
     Emojipedia.search('people')
 
@@ -82,3 +82,10 @@ def test_emoji_repr():
     print(type(correct))
     print(type(pizza.__str__()))
     assert pizza.__str__() == correct
+
+
+def test_emoji_category():
+    people = Emojipedia.category('people')
+    for e in people:
+        assert e.title
+        assert e.character

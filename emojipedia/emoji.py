@@ -1,6 +1,14 @@
+from bs4 import BeautifulSoup
+import requests
+
+
 class Emoji:
-    def __init__(self, content):
-        self.soup = content
+    def __init__(self, soup=None, url=None):
+        self._soup = soup
+        self._url = url
+        if not (soup or url):
+            raise ValueError('Emoji needs one of soup or url to be '
+                             'initialized.')
 
         self._aliases = None
         self._character = None
@@ -9,6 +17,16 @@ class Emoji:
         self._platforms = None
         self._shortcodes = None
         self._title = None
+
+    @property
+    def soup(self):
+        if not self._soup:
+            response = requests.get('http://emojipedia.org' + self._url)
+            if response.status_code != 200:
+                raise RuntimeError('Could not get emojipedia page for \'{0}\''
+                                   .format(self._url))
+            self._soup = BeautifulSoup(response.text, 'html.parser')
+        return self._soup
 
     @property
     def description(self):
