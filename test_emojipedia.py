@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from emojipedia import Emojipedia
+from emojipedia import Emojipedia, Emoji
 import nose.tools
 from nose.tools import timed
+from nose import run
 
 
 @nose.tools.raises(RuntimeError)
@@ -83,6 +84,7 @@ def test_emoji_repr():
     print(type(correct))
     print(type(pizza.__str__()))
     assert pizza.__str__() == correct
+    assert pizza.__repr__() == pizza.__str__()
 
 
 def test_emoji_category():
@@ -103,3 +105,19 @@ def test_all_emoji():
         assert e._character
         assert e._codepoints
 
+
+def test_lazy_parsing():
+    article_emoji = Emoji(url='/heavy-plus-sign')
+    assert article_emoji.title
+    assert article_emoji.character
+    assert article_emoji.description
+    assert article_emoji.codepoints
+
+    generic_emoji = Emoji(url=u'/emoji/🌮')
+    assert generic_emoji.title
+    assert generic_emoji.character
+    assert generic_emoji.description
+    assert generic_emoji.codepoints
+
+if __name__ == '__main__':
+    run()

@@ -27,8 +27,8 @@ class Emoji:
                 # Try to resolve to emoji article
                 response = requests.get('http://emojipedia.org' + self._url)
                 if response.status_code != 200:
-                    raise RuntimeError('Could not get emojipedia page for \'{0}\''
-                                       .format(self._url))
+                    raise RuntimeError('Could not get emojipedia page for '
+                                       "'{}'".format(self._url))
                 soup = BeautifulSoup(response.text, 'html.parser')
                 desc = soup.find('td', text=re.compile('Description'))
                 if not desc:
@@ -118,7 +118,7 @@ class Emoji:
     def __str__(self):
         string = u"<Emoji - '{0}' - character: {2}, description: {1}>"
         string = string.format(self.title,
-                               self.description[:20] + "...",
+                               self.description[:20] + u"...",
                                self.character)
         return string
 
