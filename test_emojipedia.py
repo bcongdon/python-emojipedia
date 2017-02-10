@@ -106,7 +106,7 @@ def test_all_emoji():
         assert e._codepoints
 
 
-def test_lazy_parsing():
+def test_lazy_parsing_article():
     article_emoji = Emoji(url='/heavy-plus-sign')
     assert article_emoji.title
     assert article_emoji.character

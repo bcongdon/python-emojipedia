@@ -19,24 +19,31 @@ class Emoji:
         self._shortcodes = None
         self._title = None
 
+    def _get_emoji_article_url(self):
+        response = requests.get('http://emojipedia.org' + self._url)
+        if response.status_code != 200:
+            raise RuntimeError('Could not get emojipedia page for '
+                               "'{}'".format(self._url))
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        desc = soup.find('td', text=re.compile('Description'))
+
+        if not desc:
+            raise ValueError('Could not parse emoji description')
+
+        article_url = desc.parent.find_next('a')
+        if not article_url:
+            raise ValueError('Could not find emoji article')
+
+        return article_url['href']
+
     @property
     def soup(self):
         if not self._soup:
             # Check to see if we've given a general emoji page
             if 'emoji/' in self._url:
-                # Try to resolve to emoji article
-                response = requests.get('http://emojipedia.org' + self._url)
-                if response.status_code != 200:
-                    raise RuntimeError('Could not get emojipedia page for '
-                                       "'{}'".format(self._url))
-                soup = BeautifulSoup(response.text, 'html.parser')
-                desc = soup.find('td', text=re.compile('Description'))
-                if not desc:
-                    raise ValueError('Could not parse emoji description')
-                article_url = desc.parent.find_next('a')
-                if not article_url:
-                    raise ValueError('Could not find emoji article')
-                self._url = article_url['href']
+                # Resolve to emoji article
+                self._url = self._get_emoji_article_url()
 
             response = requests.get('http://emojipedia.org' + self._url)
             if response.status_code != 200:
