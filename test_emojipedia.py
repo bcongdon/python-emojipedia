@@ -2,6 +2,7 @@
 
 from emojipedia import Emojipedia
 import nose.tools
+from nose.tools import timed
 
 
 @nose.tools.raises(RuntimeError)
@@ -90,9 +91,15 @@ def test_emoji_category():
         assert e.title
         assert e.character
 
+
+@timed(5)
 def test_all_emoji():
     all_emoji = Emojipedia.all()
+    assert len(all_emoji) >= 2621
     for e in all_emoji:
-        assert e.title
-        assert e.character
-        assert e.codepoints
+        # Test private properties so we don't scrape Emojipedia
+        # if this fails
+        assert e._title
+        assert e._character
+        assert e._codepoints
+

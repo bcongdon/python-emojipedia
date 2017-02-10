@@ -44,12 +44,14 @@ class Emojipedia:
             raise ValueError('Could not extract emoji list')
         emojis = []
         for emoji_entry in emoji_list.find_all('tr'):
-            url = emoji_entry.find('a')['href']
+            emoji_link = emoji_entry.find('a')
+            emoji_text = emoji_link.text.split(' ')
             emoji_row, codepoints = emoji_entry.find_all('td')
-            e = Emoji(url=url)
+
+            e = Emoji(url=emoji_link['href'])
             e._codepoints = codepoints.text.split(', ')
-            print e._codepoints
-        return None
+            e._character, e._title = emoji_text[0], ' '.join(emoji_text[1:])
+            emojis.append(e)
         return emojis
 
     @staticmethod

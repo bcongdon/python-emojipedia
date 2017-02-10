@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import re
 
 
 class Emoji:
@@ -21,6 +22,22 @@ class Emoji:
     @property
     def soup(self):
         if not self._soup:
+            # Check to see if we've given a general emoji page
+            if 'emoji/' in self._url:
+                # Try to resolve to emoji article
+                response = requests.get('http://emojipedia.org' + self._url)
+                if response.status_code != 200:
+                    raise RuntimeError('Could not get emojipedia page for \'{0}\''
+                                       .format(self._url))
+                soup = BeautifulSoup(response.text, 'html.parser')
+                desc = soup.find('td', text=re.compile('Description'))
+                if not desc:
+                    raise ValueError('Could not parse emoji description')
+                article_url = desc.parent.find_next('a')
+                if not article_url:
+                    raise ValueError('Could not find emoji article')
+                self._url = article_url['href']
+
             response = requests.get('http://emojipedia.org' + self._url)
             if response.status_code != 200:
                 raise RuntimeError('Could not get emojipedia page for \'{0}\''
