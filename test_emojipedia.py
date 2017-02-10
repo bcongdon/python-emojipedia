@@ -89,3 +89,10 @@ def test_emoji_category():
     for e in people:
         assert e.title
         assert e.character
+
+def test_all_emoji():
+    all_emoji = Emojipedia.all()
+    for e in all_emoji:
+        assert e.title
+        assert e.character
+        assert e.codepoints

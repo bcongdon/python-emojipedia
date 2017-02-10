@@ -37,6 +37,22 @@ class Emojipedia:
         return emojis
 
     @staticmethod
+    def all():
+        soup = Emojipedia._get_page('emoji')
+        emoji_list = soup.find('table', {'class': 'emoji-list'})
+        if not emoji_list:
+            raise ValueError('Could not extract emoji list')
+        emojis = []
+        for emoji_entry in emoji_list.find_all('tr'):
+            url = emoji_entry.find('a')['href']
+            emoji_row, codepoints = emoji_entry.find_all('td')
+            e = Emoji(url=url)
+            e._codepoints = codepoints.text.split(', ')
+            print e._codepoints
+        return None
+        return emojis
+
+    @staticmethod
     def _valid_emoji_page(soup):
         """
         (soup) -> bool
