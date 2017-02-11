@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import six
 
 
 class Emoji:
@@ -122,12 +123,15 @@ class Emoji:
             self._character = self.soup.find('h1').text.split()[0]
         return self._character
 
-    def __str__(self):
+    def __unicode__(self):
         string = u"<Emoji - '{0}' - character: {2}, description: {1}>"
         string = string.format(self.title,
                                self.description[:20] + u"...",
                                self.character)
         return string
+
+    def __str__(self):
+        return six.text_type(self.__unicode__()).encode('utf-8')
 
     def __repr__(self):
         return self.__str__()
