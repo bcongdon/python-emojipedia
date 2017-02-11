@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
+import re
+import six
 
 
 class Emoji:
@@ -18,9 +20,32 @@ class Emoji:
         self._shortcodes = None
         self._title = None
 
+    def _get_emoji_article_url(self):
+        response = requests.get('http://emojipedia.org' + self._url)
+        if response.status_code != 200:
+            raise RuntimeError('Could not get emojipedia page for '
+                               "'{}'".format(self._url))
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        desc = soup.find('td', text=re.compile('Description'))
+
+        if not desc:
+            raise ValueError('Could not parse emoji description')
+
+        article_url = desc.parent.find_next('a')
+        if not article_url:
+            raise ValueError('Could not find emoji article')
+
+        return article_url['href']
+
     @property
     def soup(self):
         if not self._soup:
+            # Check to see if we've given a general emoji page
+            if 'emoji/' in self._url:
+                # Resolve to emoji article
+                self._url = self._get_emoji_article_url()
+
             response = requests.get('http://emojipedia.org' + self._url)
             if response.status_code != 200:
                 raise RuntimeError('Could not get emojipedia page for \'{0}\''
@@ -98,12 +123,15 @@ class Emoji:
             self._character = self.soup.find('h1').text.split()[0]
         return self._character
 
-    def __str__(self):
+    def __unicode__(self):
         string = u"<Emoji - '{0}' - character: {2}, description: {1}>"
         string = string.format(self.title,
-                               self.description[:20] + "...",
+                               self.description[:20] + u"...",
                                self.character)
         return string
+
+    def __str__(self):
+        return six.text_type(self.__unicode__()).encode('utf-8')
 
     def __repr__(self):
         return self.__str__()

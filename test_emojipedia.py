@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from emojipedia import Emojipedia
+from emojipedia import Emojipedia, Emoji
 import nose.tools
+from nose.tools import timed
+from nose import run
 
 
 @nose.tools.raises(RuntimeError)
@@ -79,9 +81,8 @@ def test_emoji_repr():
     pizza = Emojipedia.search('slice-of-pizza')
     correct = (u"<Emoji - 'Pizza' - character: 🍕, "
                u"description: A slice  of pizza, w...>")
-    print(type(correct))
-    print(type(pizza.__str__()))
-    assert pizza.__str__() == correct
+    assert pizza.__unicode__() == correct
+    assert pizza.__repr__() == pizza.__str__()
 
 
 def test_emoji_category():
@@ -89,3 +90,32 @@ def test_emoji_category():
     for e in people:
         assert e.title
         assert e.character
+
+
+@timed(5)
+def test_all_emoji():
+    all_emoji = Emojipedia.all()
+    assert len(all_emoji) >= 2621
+    for e in all_emoji:
+        # Test private properties so we don't scrape Emojipedia
+        # if this fails
+        assert e._title
+        assert e._character
+        assert e._codepoints
+
+
+def test_lazy_parsing_article():
+    article_emoji = Emoji(url='/heavy-plus-sign')
+    assert article_emoji.title
+    assert article_emoji.character
+    assert article_emoji.description
+    assert article_emoji.codepoints
+
+    generic_emoji = Emoji(url=u'/emoji/🌮')
+    assert generic_emoji.title
+    assert generic_emoji.character
+    assert generic_emoji.description
+    assert generic_emoji.codepoints
+
+if __name__ == '__main__':
+    run()
