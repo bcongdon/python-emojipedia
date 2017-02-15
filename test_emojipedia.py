@@ -55,10 +55,10 @@ def test_emoji_without_shortcode():
 
 def test_emoji_aliases():
     hands = Emojipedia.search('person-with-folded-hands')
-    correct = ['High Five Emoji',
-               'Please Emoji',
-               'Praying Hands Emoji',
-               'Thank You Emoji']
+    correct = ['High Five',
+               'Please',
+               'Praying Hands',
+               'Thank You']
     assert set(hands.aliases) == set(correct)
 
 
