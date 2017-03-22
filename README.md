@@ -16,7 +16,7 @@ python setup.py install
 ```
 
 ## Example:
-```
+```python
 from emojipedia import Emojipedia
 
 # Search for emoji by title
