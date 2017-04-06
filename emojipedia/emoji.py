@@ -85,8 +85,7 @@ class Emoji:
                 platform = {
                     'title': vendor_title.text
                 }
-
-                if vendor_img:
+                if vendor_img and vendor_img.find('img'):
                     platform['platform_image'] = vendor_img.find('img')['src']
                 self._platforms.append(platform)
         return self._platforms

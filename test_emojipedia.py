@@ -29,7 +29,7 @@ def test_emoji_codepoints():
 
 
 def test_platforms():
-    wink = Emojipedia.search('winking-face')
+    wink = Emojipedia.search('bug')
     correct = ['LG', 'Google', 'HTC', 'Apple', 'Samsung', 'Twitter',
                'Mozilla', 'Emoji One', 'Facebook', 'emojidex', 'Messenger',
                'Microsoft']
