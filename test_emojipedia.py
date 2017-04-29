@@ -31,11 +31,11 @@ def test_emoji_codepoints():
 def test_platforms():
     wink = Emojipedia.search('bug')
     correct = ['LG', 'Google', 'HTC', 'Apple', 'Samsung', 'Twitter',
-               'Mozilla', 'Emoji One', 'Facebook', 'emojidex', 'Messenger',
+               'Mozilla', 'EmojiOne', 'Facebook', 'emojidex', 'Messenger',
                'Microsoft']
 
     # Order not important
-    assert set([x['title'] for x in wink.platforms]) == set(correct)
+    assert set(correct) <= set([x['title'] for x in wink.platforms])
     for platform in wink.platforms:
         assert 'title' in platform
         assert ('platform_image' in platform and
