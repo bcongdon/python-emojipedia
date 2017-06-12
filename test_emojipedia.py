@@ -92,7 +92,7 @@ def test_emoji_category():
         assert e.character
 
 
-@timed(5)
+@timed(15)
 def test_all_emoji():
     all_emoji = Emojipedia.all()
     assert len(all_emoji) >= 2621
