@@ -9,6 +9,6 @@ install:
   - "pip install -r test_requirements.txt"
 script:
   - pep8 emojipedia/ test_emojipedia.py
-  - nosetests --with-coverage --cover-package=emojipedia
+  - nosetests --with-coverage --cover-package=emojipedia --with-flaky
 after_sucess:
   - CODECLIMATE_REPO_TOKEN=$COVERAGE_TOKEN codeclimate-test-reporter

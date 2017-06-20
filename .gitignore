@@ -63,3 +63,4 @@ target/
 venv
 .env
 venv3
+.noseids

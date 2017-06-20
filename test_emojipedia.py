@@ -4,6 +4,7 @@ from emojipedia import Emojipedia, Emoji
 import nose.tools
 from nose.tools import timed
 from nose import run
+from flaky import flaky
 
 
 @nose.tools.raises(RuntimeError)
@@ -92,6 +93,7 @@ def test_emoji_category():
         assert e.character
 
 
+@flaky
 @timed(15)
 def test_all_emoji():
     all_emoji = Emojipedia.all()
