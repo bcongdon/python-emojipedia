@@ -5,6 +5,14 @@
 [![Test Coverage](https://codeclimate.com/github/bcongdon/python-emojipedia/badges/coverage.svg)](https://codeclimate.com/github/bcongdon/python-emojipedia/coverage)
 >Emoji data from Emojipedia :sunglasses:
 
+## Basic Usage
+```python
+>>>from emojipedia import Emojipedia
+>>>taco = Emojipedia.search('taco')
+>>>taco
+# <Emoji - 'Taco' - character: 🌮, description: A taco; a Mexican fo...>
+```
+
 ## Installation:
 To install, simply run `pip install emojipedia`.
 
@@ -15,7 +23,7 @@ python setup.py build
 python setup.py install
 ```
 
-## Example:
+## Usage:
 ```python
 from emojipedia import Emojipedia
 
@@ -31,7 +39,7 @@ print(taco.codepoints)  # "U+1F32E"
 # Emojipedia listed platforms 
 # Contains title, Emojipedia platform url, and platform specific emoji img url
 platforms = taco.platforms 
-print(platforms[0])  # {'title': 'Apple', 'platform_url': '...', 'platform_img': '...'}
+print(platforms[0])  # Platform(name=u'Apple', image_url=u'.../taco_1f32e.png')
 
 joy = Emojipedia.search('face-with-tears-of-joy')
 # Emoji shortcodes
@@ -53,6 +61,10 @@ print(len(emojis))  # 2621
 for emoji in emojis:
     print(emoji.title)
 ```
+
+## Documentation
+
+Read more about python-emojipedia on the [ReadTheDocs](https://python-emojipedia.readthedocs.io/en/latest/) page.
 
 ## Contributing
 

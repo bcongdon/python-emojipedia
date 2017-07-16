@@ -36,11 +36,10 @@ def test_platforms():
                'Microsoft']
 
     # Order not important
-    assert set(correct) <= set([x['title'] for x in wink.platforms])
+    assert set(correct) <= set([x.name for x in wink.platforms])
     for platform in wink.platforms:
-        assert 'title' in platform
-        assert ('platform_image' in platform and
-                platform['platform_image'].startswith('http'))
+        assert platform.name
+        assert platform.image_url.startswith('http')
 
 
 def test_emoji_shortcodes():

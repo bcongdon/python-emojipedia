@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(name='Emojipedia',
       packages=['emojipedia'],
-      version='0.3.3',
+      version='0.4.0',
       description='Emoji data from Emojipedia',
       author='Benjamin Congdon',
       author_email='bcongdo2@illinois.edu',
