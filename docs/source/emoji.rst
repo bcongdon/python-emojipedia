@@ -8,7 +8,7 @@ emojipedia\.emoji module
 
 .. py:class:: emojipedia.emoji.Platform
 
-    Data container object for contribution data of a given day.
+    Object representing an emoji entry on Emojipedia
 
     .. py:attribute:: name
 

@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/bcongdon/python-emojipedia.svg?branch=master)](https://travis-ci.org/bcongdon/python-emojipedia)
 [![Code Climate](https://codeclimate.com/github/bcongdon/python-emojipedia/badges/gpa.svg)](https://codeclimate.com/github/bcongdon/python-emojipedia)
 [![PyPI version](https://badge.fury.io/py/Emojipedia.svg)](https://badge.fury.io/py/Emojipedia)
+[![Documentation Status](https://readthedocs.org/projects/python-emojipedia/badge/?version=latest)](http://python-emojipedia.readthedocs.io/en/latest/?badge=latest)
 [![Test Coverage](https://codeclimate.com/github/bcongdon/python-emojipedia/badges/coverage.svg)](https://codeclimate.com/github/bcongdon/python-emojipedia/coverage)
 >Emoji data from Emojipedia :sunglasses:
 
