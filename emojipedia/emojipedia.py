@@ -1,24 +1,44 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 from bs4 import BeautifulSoup
 import requests
 from .emoji import Emoji
 
+EMOJI_CATEGORIES = ['people', 'nature', 'food-drink', 'activity',
+                    'travel-places', 'objects', 'symbols', 'flags']
+'''List of all valid emoji categories
+'''
+
 
 class Emojipedia:
-    all_categories = ['people', 'nature', 'food-drink', 'activity',
-                      'travel-places', 'objects', 'symbols', 'flags']
-
     @staticmethod
     def search(query):
-        return Emoji(Emojipedia.get_emoji_page(query))
+        '''Searches for emojis on Emojipedia. Query must be a valid emoji name.
+
+            :param str query: the search query
+            :returns: Emoji with the given name
+            :rtype: Emoji
+        '''
+        return Emoji(Emojipedia._get_emoji_page(query))
 
     @staticmethod
     def random():
-        return Emoji(Emojipedia.get_emoji_page('random'))
+        '''Returns a random emoji.
+
+            :returns: A random emoji
+            :rtype: Emoji
+        '''
+        return Emoji(Emojipedia._get_emoji_page('random'))
 
     @staticmethod
     def category(query):
-        if query not in Emojipedia.all_categories:
+        '''Returns list of all emojis in the given category.
+
+            :returns: List of emojies in the category
+            :rtype: [Emoji]
+        '''
+        if query not in EMOJI_CATEGORIES:
             raise ValueError('{} is not a valid emoji category.'.format(query))
         soup = Emojipedia._get_page(query)
         emoji_list = soup.find('ul', {'class': 'emoji-list'})
@@ -38,6 +58,14 @@ class Emojipedia:
 
     @staticmethod
     def all():
+        '''Returns list of emojis in Emojipedia.
+
+            An extremely powerful method.
+            Returns all emojis known to human-kind. 😎
+
+            :returns: List of all emojies
+            :rtype: [Emoji]
+        '''
         soup = Emojipedia._get_page('emoji')
         emoji_list = soup.find('table', {'class': 'emoji-list'})
         if not emoji_list:
@@ -71,7 +99,7 @@ class Emojipedia:
         return BeautifulSoup(response.text, 'html.parser')
 
     @staticmethod
-    def get_emoji_page(query):
+    def _get_emoji_page(query):
         soup = Emojipedia._get_page(query)
         if not Emojipedia._valid_emoji_page(soup):
             raise ValueError('Query did not yield a emoji entry')
