@@ -8,7 +8,6 @@ from flaky import flaky
 import unittest
 
 
-
 @nose.tools.raises(RuntimeError)
 def test_invalid_url():
     Emojipedia.search('not a valid url')
