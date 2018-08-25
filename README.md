@@ -57,6 +57,7 @@ people[0].title  # <Emoji - 'Grinning Face' - character: 😀, description: A fa
 print(len(people))  # 306
 
 # Get all the emoji
+# NOTE: This is temporarily broken, as it seems visiting emojipedia.org/emoji always times out
 emojis = Emojipedia.all()
 print(len(emojis))  # 2621
 for emoji in emojis:
