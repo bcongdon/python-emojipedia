@@ -64,3 +64,4 @@ venv
 .env
 venv3
 .noseids
+.vscode
