@@ -33,8 +33,7 @@ def test_emoji_codepoints():
 def test_platforms():
     wink = Emojipedia.search('bug')
     correct = ['LG', 'Google', 'HTC', 'Apple', 'Samsung', 'Twitter',
-               'Mozilla', 'EmojiOne', 'Facebook', 'emojidex', 'Messenger',
-               'Microsoft']
+               'Mozilla', 'Facebook', 'emojidex', 'Messenger', 'Microsoft']
 
     # Order not important
     assert set(correct) <= set([x.name for x in wink.platforms])
@@ -56,8 +55,7 @@ def test_emoji_without_shortcode():
 
 def test_emoji_aliases():
     hands = Emojipedia.search('person-with-folded-hands')
-    correct = ['High Five',
-               'Please',
+    correct = ['Please',
                'Prayer',
                'Thank You',
                'Namaste']
