@@ -94,7 +94,6 @@ def test_emoji_category():
 
 @flaky
 @timed(15)
-@unittest.skip("/emoji/ seems to always timeout")
 def test_all_emoji():
     all_emoji = Emojipedia.all()
     assert len(all_emoji) >= 2621
